@@ -1,13 +1,21 @@
 [package]
 name = "os"
 version = "0.1.0"
-authors = ["Yifan Wu <shinbokuow@163.com>"]
-edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+edition = "2021"
 
 [dependencies]
-buddy_system_allocator = "0.6"
-lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
-log = "0.4"
+spin = "0.9"
+lazy_static = { version = "1", features = ["spin_no_std"] }
+# There aren't associated methods for manipulating Sstatus in this official
+# riscv crate.
+# riscv = "0.8"
 riscv = { git = "https://github.com/rcore-os/riscv", features = ["inline-asm"] }
+
+
+[build-dependencies]
+toml = "0.5"
+serde = { version = "1", features = ["derive"] }
+anyhow = "1"
+
+[profile.release]
+debug = true
